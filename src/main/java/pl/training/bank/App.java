@@ -15,12 +15,19 @@ public class App
         try {
             Account account1 = bank.addAccount(new Account());
             Account account2 = bank.addAccount(new Account());
+            System.out.println("Account 1 balance: " + account1.getBalance());
+            System.out.println("Account 2 balance: " + account2.getBalance());
 
             bank.payInCashToAccount(account1.getNumber(), new BigDecimal(1000));
             bank.payInCashToAccount(account2.getNumber(), new BigDecimal(200));
-            bank.transferCash(account1.getNumber(), account2.getNumber(), new BigDecimal(10));
-            bank.payInCashToAccount("0001", new BigDecimal(0));
+            System.out.println("Account 1 balance: " + account1.getBalance());
+            System.out.println("Account 2 balance: " + account2.getBalance());
 
+            bank.transferCash(account1.getNumber(), account2.getNumber(), new BigDecimal(10));
+            System.out.println("Account 1 balance: " + account1.getBalance());
+            System.out.println("Account 2 balance: " + account2.getBalance());
+
+            bank.payInCashToAccount("0001", new BigDecimal(0));
         } catch (BankException e) {
             // e.printStackTrace();
         }
