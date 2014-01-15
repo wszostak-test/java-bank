@@ -14,8 +14,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Qualifier("jdbc")
-@Repository
+@DAO(type = DAO.Type.JDBC)
 public class JdbcAccountRepository implements AccountRepository
 {
     private static final String SQL_ADD_ACCOUNT =

@@ -7,8 +7,7 @@ import pl.training.bank.entity.Client;
 import java.util.HashMap;
 import java.util.Map;
 
-@Qualifier("inMemory")
-@Repository
+@DAO(type = DAO.Type.IN_MEMORY)
 public class InMemoryClientRepository implements ClientRepository{
 
     private Map<Long, Client> clients = new HashMap<>();

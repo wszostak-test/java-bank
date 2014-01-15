@@ -16,8 +16,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Qualifier("jdbc")
-@Repository
+@DAO(type = DAO.Type.JDBC)
 public class JdbcClientRepository implements ClientRepository
 {
     private static final String SQL_INSERT_CLIENT =

@@ -9,6 +9,7 @@ import pl.training.bank.service.AccountNumberGenerator;
 import pl.training.bank.service.repository.AccountDoesNotExistException;
 import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
+import pl.training.bank.service.repository.DAO;
 
 import java.math.BigDecimal;
 
@@ -21,8 +22,8 @@ public class Bank {
 
     @Autowired
     public Bank(
-            @Qualifier("jdbc") ClientRepository clientRepository,
-            @Qualifier("jdbc") AccountRepository accountRepository,
+            @DAO(type = DAO.Type.JDBC) ClientRepository clientRepository,
+            @DAO(type = DAO.Type.JDBC) AccountRepository accountRepository,
             @Qualifier("jdbc") AccountNumberGenerator accountNumberGenerator) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
