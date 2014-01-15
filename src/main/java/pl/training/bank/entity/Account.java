@@ -1,5 +1,7 @@
 package pl.training.bank.entity;
 
+import pl.training.bank.service.repository.InsufficientFundsException;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -14,13 +16,12 @@ public class Account {
         balance = balance.add(amount);
     }
 
-    public boolean payOut(BigDecimal amount) {
-        boolean result = false;
+    public void payOut(BigDecimal amount) throws InsufficientFundsException {
         if (amount.compareTo(balance) <= 0) {
-            balance = balance.subtract(amount);
-            result = true;
+            balance.subtract(amount);
+        } else {
+            throw new InsufficientFundsException();
         }
-        return result;
     }
 
     public boolean addClient(Client client) {
