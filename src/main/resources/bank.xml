@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="bank" class="pl.training.Bank">
-        <constructor-arg name="clientRepository" ref="clientRepository"/>
-        <constructor-arg name="accountRepository" ref="accountRepository"/>
-        <constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>
-    </bean>
+    <context:annotation-config/>
+    <context:component-scan base-package="pl.training.bank"/>
 
-    <bean id="clientRepository" class="pl.training.service.repository.ClientRepository"/>
-    <bean id="accountRepository" class="pl.training.service.repository.AccountRepository"/>
-    <bean id="accountNumberGenerator" class="pl.training.service.AccountNumberGenerator"/>
+    <!--<bean id="bank" class="pl.training.bank">-->
+        <!--<constructor-arg name="clientRepository" ref="clientRepository"/>-->
+        <!--<constructor-arg name="accountRepository" ref="accountRepository"/>-->
+        <!--<constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>-->
+    <!--<bean id="clientRepository" class="pl.training.bank.service.repository.InMemoryClientRepository"/>-->
+    <!--<bean id="accountNumberGenerator" class="pl.training.bank.service.InMemoryAccountNumberGenerator"/>-->
 </beans>

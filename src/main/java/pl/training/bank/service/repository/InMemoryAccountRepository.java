@@ -1,10 +1,12 @@
 package pl.training.bank.service.repository;
 
+import org.springframework.stereotype.Repository;
 import pl.training.bank.entity.Account;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class InMemoryAccountRepository implements AccountRepository {
 
     private Map<Long, Account> accounts = new HashMap<>();

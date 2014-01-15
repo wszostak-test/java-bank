@@ -1,4 +1,4 @@
-package pl.training;
+package pl.training.bank;
 
 public class BankException extends  Exception {
 
