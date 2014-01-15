@@ -18,7 +18,7 @@ public class Account {
 
     public void payOut(BigDecimal amount) throws InsufficientFundsException {
         if (amount.compareTo(balance) <= 0) {
-            balance.subtract(amount);
+            balance = balance.subtract(amount);
         } else {
             throw new InsufficientFundsException();
         }
