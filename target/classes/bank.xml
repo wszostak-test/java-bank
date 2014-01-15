@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bank" class="pl.training.Bank">
+        <constructor-arg name="clientRepository" ref="clientRepository"/>
+        <constructor-arg name="accountRepository" ref="accountRepository"/>
+        <constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>
+    </bean>
+
+    <bean id="clientRepository" class="pl.training.service.repository.ClientRepository"/>
+    <bean id="accountRepository" class="pl.training.service.repository.AccountRepository"/>
+    <bean id="accountNumberGenerator" class="pl.training.service.AccountNumberGenerator"/>
+</beans>
