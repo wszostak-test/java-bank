@@ -1,11 +1,13 @@
 package pl.training.bank.service.repository;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import pl.training.bank.entity.Client;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Qualifier("inMemory")
 @Repository
 public class InMemoryClientRepository implements ClientRepository{
 

@@ -19,8 +19,6 @@ public class App
         Bank bank = context.getBean(Bank.class);
 
         try {
-            Account account1 = bank.addAccount(new Account());
-
             Client client = new Client();
             client.setFirstName("Jan");
             client.setLastName("Kolwalski");

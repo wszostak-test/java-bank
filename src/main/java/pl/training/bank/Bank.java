@@ -1,6 +1,7 @@
 package pl.training.bank;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
@@ -19,7 +20,10 @@ public class Bank {
     private AccountNumberGenerator accountNumberGenerator;
 
     @Autowired
-    public Bank(ClientRepository clientRepository, AccountRepository accountRepository, AccountNumberGenerator accountNumberGenerator) {
+    public Bank(
+            @Qualifier("jdbc") ClientRepository clientRepository,
+            @Qualifier("jdbc") AccountRepository accountRepository,
+            @Qualifier("jdbc") AccountNumberGenerator accountNumberGenerator) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
         this.accountNumberGenerator = accountNumberGenerator;
