@@ -18,4 +18,18 @@
     <!--<bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>-->
     <!--<bean id="clientRepository" class="pl.training.bank.service.repository.InMemoryClientRepository"/>-->
     <!--<bean id="accountNumberGenerator" class="pl.training.bank.service.InMemoryAccountNumberGenerator"/>-->
+
+    <aop:config>
+        <aop:pointcut id="payIn" expression="execution(* pl.training.bank.Bank.payInCashToAccount(..)) and args(accountNumber, amount)"/>
+        <aop:pointcut id="payOut" expression="execution(* pl.training.bank.Bank.payOutCashFromAccount(..)) and args(accountNumber, amount)"/>
+        <aop:pointcut id="transfer" expression="execution(* pl.training.bank.Bank.transferCash(..)) and args(fromAccountNumber, toAccountNumber, amount)"/>
+        <aop:pointcut id="cashFlowOperation" expression="execution(* pl.training.bank.Bank.*Cash*(..))"/>
+        <aop:aspect ref="cashFlowLogger">
+            <aop:before pointcut-ref="payIn" method="beforePayInOperation"/>
+            <aop:before pointcut-ref="payOut" method="beforePayOutOperation"/>
+            <aop:before pointcut-ref="transfer" method="beforeTransferCashOperation"/>
+            <aop:after-returning pointcut-ref="cashFlowOperation" method="afterSuccess"/>
+            <aop:after-throwing pointcut-ref="cashFlowOperation" method="afterFailure" throwing="bankException"/>
+        </aop:aspect>
+    </aop:config>
 </beans>
