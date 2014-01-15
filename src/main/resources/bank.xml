@@ -5,19 +5,25 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:annotation-config/>
-    <context:component-scan base-package="pl.training.bank"/>
+    <!--<context:annotation-config/>-->
+    <!--<context:component-scan base-package="pl.training.bank"/>-->
     <aop:aspectj-autoproxy/>
 
-    <!--<bean id="bank" class="pl.training.bank">-->
-        <!--<constructor-arg name="clientRepository" ref="clientRepository"/>-->
-        <!--<constructor-arg name="accountRepository" ref="accountRepository"/>-->
-        <!--<constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>-->
-    <!--</bean>-->
+    <bean id="bank" class="pl.training.bank.Bank">
+    <constructor-arg name="clientRepository" ref="clientRepository"/>
+    <constructor-arg name="accountRepository" ref="accountRepository"/>
+    <constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>
+</bean>
 
-    <!--<bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>-->
-    <!--<bean id="clientRepository" class="pl.training.bank.service.repository.InMemoryClientRepository"/>-->
-    <!--<bean id="accountNumberGenerator" class="pl.training.bank.service.InMemoryAccountNumberGenerator"/>-->
+    <bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>
+    <bean id="clientRepository" class="pl.training.bank.service.repository.JdbcClientRepository">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="accountNumberGenerator" class="pl.training.bank.service.JdbcAccountNumberGenerator">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="cashFlowLogger" class="pl.training.bank.aspect.CashFlowLogger"/>
 
     <aop:config>
         <aop:pointcut id="payIn" expression="execution(* pl.training.bank.Bank.payInCashToAccount(..)) and args(accountNumber, amount)"/>
