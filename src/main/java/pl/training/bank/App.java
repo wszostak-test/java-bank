@@ -8,6 +8,7 @@ import pl.training.bank.service.JdbcAccountNumberGenerator;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class App
 {
@@ -17,11 +18,12 @@ public class App
                 "bank-repository.xml");
 
         Bank bank = context.getBean(Bank.class);
+        Date date = new Date();
 
         try {
             Client client = new Client();
             client.setFirstName("Jan");
-            client.setLastName("Kolwalski");
+            client.setLastName("Kolwalski (" + date.getTime() + ")");
 
             bank.addClient(client);
         } catch (BankException e) {
