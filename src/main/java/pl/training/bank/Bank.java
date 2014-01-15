@@ -31,6 +31,7 @@ public class Bank {
 
     public Account addAccount(Account account) throws BankException {
         account.setNumber(accountNumberGenerator.next());
+        account.setBalance(BigDecimal.ZERO);
         return accountRepository.add(account);
     }
 
