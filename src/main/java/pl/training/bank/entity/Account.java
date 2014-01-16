@@ -1,7 +1,5 @@
 package pl.training.bank.entity;
 
-import pl.training.bank.service.repository.InsufficientFundsException;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;

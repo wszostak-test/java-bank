@@ -4,9 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
-import pl.training.bank.service.JdbcAccountNumberGenerator;
 
-import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.Date;
 

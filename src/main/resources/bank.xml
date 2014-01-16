@@ -10,20 +10,6 @@
     <aop:aspectj-autoproxy/>
     <tx:annotation-driven/>
 
-    <!--<bean id="bank" class="pl.training.bank.Bank">-->
-    <!--<constructor-arg name="clientRepository" ref="clientRepository"/>-->
-    <!--<constructor-arg name="accountRepository" ref="accountRepository"/>-->
-    <!--<constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>-->
-<!--</bean>-->
-
-    <!--<bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>-->
-    <!--<bean id="clientRepository" class="pl.training.bank.service.repository.JdbcClientRepository">-->
-        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
-    <!--</bean>-->
-    <!--<bean id="accountNumberGenerator" class="pl.training.bank.service.JdbcAccountNumberGenerator">-->
-        <!--<constructor-arg name="dataSource" ref="dataSource"/>-->
-    <!--</bean>-->
-
     <bean id="cashFlowLogger" class="pl.training.bank.aspect.CashFlowLogger"/>
     <aop:config>
         <aop:pointcut id="payIn" expression="execution(* pl.training.bank.Bank.payInCashToAccount(..)) and args(accountNumber, amount)"/>

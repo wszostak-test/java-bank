@@ -24,9 +24,9 @@ public class Bank {
 
     @Autowired
     public Bank(
-            @DAO(type = DAO.Type.HIBERNATE) ClientRepository clientRepository,
-            @DAO(type = DAO.Type.HIBERNATE) AccountRepository accountRepository,
-            @Qualifier("hibernate") AccountNumberGenerator accountNumberGenerator) {
+            @DAO(type = DAO.Type.JPA) ClientRepository clientRepository,
+            @DAO(type = DAO.Type.JPA) AccountRepository accountRepository,
+            @Qualifier("jpa") AccountNumberGenerator accountNumberGenerator) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
         this.accountNumberGenerator = accountNumberGenerator;

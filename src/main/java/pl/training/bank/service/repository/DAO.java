@@ -17,5 +17,5 @@ public @interface DAO
     Type type();
     String description() default "";
 
-    enum Type {IN_MEMORY, JDBC, HIBERNATE}
+    enum Type {IN_MEMORY, JDBC, HIBERNATE, JPA}
 }
