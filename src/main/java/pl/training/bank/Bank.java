@@ -3,6 +3,7 @@ package pl.training.bank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
 import pl.training.bank.service.AccountNumberGenerator;
@@ -11,11 +12,10 @@ import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
 import pl.training.bank.service.repository.DAO;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Component
-@Transactional
+@Transactional(rollbackFor = BankException.class)
 public class Bank {
 
     private ClientRepository clientRepository;
