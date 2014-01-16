@@ -6,9 +6,15 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@NamedQuery(
+    name = Account.QL_SELECT_BY_NUMBER,
+    query = "select a from Account a where a.number = :number")
 @Table(name = "accounts")
 @Entity
-public class Account {
+public class Account
+{
+    public static final String QL_SELECT_BY_NUMBER =
+        "selectByNumber";
 
     @Id
     @GeneratedValue
