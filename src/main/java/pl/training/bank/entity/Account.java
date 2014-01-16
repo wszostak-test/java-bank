@@ -2,14 +2,28 @@ package pl.training.bank.entity;
 
 import pl.training.bank.service.repository.InsufficientFundsException;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Table(name = "accounts")
+@Entity
 public class Account {
 
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(length = 26)
     private String number;
+
     private BigDecimal balance;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "account_clients",
+        joinColumns = @JoinColumn(name = "account_id"),
+        inverseJoinColumns = @JoinColumn(name = "client_id"))
     private List<Client> clients;
 
     public void payIn(BigDecimal amount) {
