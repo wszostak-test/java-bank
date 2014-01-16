@@ -21,11 +21,26 @@ public class App
         Date date = new Date();
 
         try {
-            Client client = new Client();
-            client.setFirstName("Jan");
-            client.setLastName("Kolwalski (" + date.getTime() + ")");
+            Client c1 = new Client();
+            c1.setFirstName("Jan");
+            c1.setLastName("Kolwalski (" + date.getTime() + ")");
 
-            bank.addClient(client);
+            Client c2 = new Client();
+            c2.setFirstName("Jacek");
+            c2.setLastName("Nowak (" + date.getTime() + ")");
+
+            Account a1 = new Account();
+            Account a2 = new Account();
+
+            bank.addClient(c1);
+            bank.addClient(c2);
+            bank.addAccount(a1);
+            bank.addAccount(a2);
+            bank.assignClientToAccount(a1.getId(), c1.getId());
+            bank.assignClientToAccount(a2.getId(), c2.getId());
+            bank.payInCashToAccount(a1.getNumber(), new BigDecimal(1000));
+            bank.payInCashToAccount(a2.getNumber(), new BigDecimal(2000));
+            bank.transferCash(a1.getNumber(), a2.getNumber(), new BigDecimal(123));
         } catch (BankException e) {
             // e.printStackTrace();
         }
