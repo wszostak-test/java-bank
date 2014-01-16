@@ -25,12 +25,12 @@ public class HibernateAccountGenerator implements AccountNumberGenerator {
         Long lastAccountNumber = DEFAULT_ACCOUNT_NUMBER;
 
         Session session = sessionFactory.getCurrentSession();
-        Object result = session
+        String result = (String) session
             .createQuery(SQL_LAST_ACCOUNT_NUMBER)
             .uniqueResult();
 
-        if (lastAccountNumber != null) {
-            lastAccountNumber = (Long) result;
+        if (result != null) {
+            lastAccountNumber = Long.parseLong(result);
             ++lastAccountNumber;
         }
 
