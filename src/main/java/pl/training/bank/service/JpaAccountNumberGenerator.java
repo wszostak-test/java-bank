@@ -1,10 +1,7 @@
 package pl.training.bank.service;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import pl.training.bank.service.repository.DAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

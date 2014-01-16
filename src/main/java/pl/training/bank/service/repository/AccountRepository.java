@@ -1,13 +1,9 @@
 package pl.training.bank.service.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import pl.training.bank.entity.Account;
 
-@Repository
-public interface AccountRepository
+public interface AccountRepository extends JpaRepository<Account, Long>
 {
-    Account add(Account account);
-    Account get(Long id);
-    Account getByAccountNumber(String accountNumber) throws AccountDoesNotExistException;
-    void update(Account account) throws AccountDoesNotExistException;
+    Account findByNumber(String number);
 }

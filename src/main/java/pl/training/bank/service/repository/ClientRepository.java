@@ -1,13 +1,7 @@
 package pl.training.bank.service.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import pl.training.bank.entity.Client;
 
-@Repository
-public interface ClientRepository {
-
-    Client add(Client client);
-
-    Client get(Long id);
-
+public interface ClientRepository extends JpaRepository<Client, Long> {
 }

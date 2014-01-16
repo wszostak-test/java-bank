@@ -7,10 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
 import pl.training.bank.service.AccountNumberGenerator;
-import pl.training.bank.service.repository.AccountDoesNotExistException;
 import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
-import pl.training.bank.service.repository.DAO;
 
 import java.math.BigDecimal;
 
@@ -24,8 +22,8 @@ public class Bank {
 
     @Autowired
     public Bank(
-            @DAO(type = DAO.Type.JPA) ClientRepository clientRepository,
-            @DAO(type = DAO.Type.JPA) AccountRepository accountRepository,
+            ClientRepository clientRepository,
+            AccountRepository accountRepository,
             @Qualifier("jpa") AccountNumberGenerator accountNumberGenerator) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
@@ -33,18 +31,18 @@ public class Bank {
     }
 
     public Client addClient(Client client) throws BankException {
-        return clientRepository.add(client);
+        return clientRepository.saveAndFlush(client);
     }
 
     public Account addAccount(Account account) throws BankException {
         account.setNumber(accountNumberGenerator.next());
         account.setBalance(BigDecimal.ZERO);
-        return accountRepository.add(account);
+        return accountRepository.saveAndFlush(account);
     }
 
     public void assignClientToAccount(Long accountId, Long clientId) throws BankException {
-        Account account = accountRepository.get(accountId);
-        Client client = clientRepository.get(clientId);
+        Account account = accountRepository.findOne(accountId);
+        Client client = clientRepository.findOne(clientId);
         if (account != null && client != null) {
             account.addClient(client);
         } else {
@@ -53,12 +51,12 @@ public class Bank {
     }
 
     public void payInCashToAccount(String accountNumber, BigDecimal amount)  throws BankException {
-        Account account = accountRepository.getByAccountNumber(accountNumber);
+        Account account = accountRepository.findByNumber(accountNumber);
         account.payIn(amount);
     }
 
     public void payOutCashFromAccount(String accountNumber, BigDecimal amount)  throws BankException {
-        Account account = accountRepository.getByAccountNumber(accountNumber);
+        Account account = accountRepository.findByNumber(accountNumber);
         account.payOut(amount);
 
     }
