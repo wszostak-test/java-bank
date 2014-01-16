@@ -11,9 +11,11 @@ import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
 import pl.training.bank.service.repository.DAO;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Component
+@Transactional
 public class Bank {
 
     private ClientRepository clientRepository;
