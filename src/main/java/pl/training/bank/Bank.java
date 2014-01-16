@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
-import pl.training.bank.service.AccountNumberGenerator;
 import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
 
@@ -18,16 +17,13 @@ public class Bank {
 
     private ClientRepository clientRepository;
     private AccountRepository accountRepository;
-    private AccountNumberGenerator accountNumberGenerator;
 
     @Autowired
     public Bank(
             ClientRepository clientRepository,
-            AccountRepository accountRepository,
-            @Qualifier("jpa") AccountNumberGenerator accountNumberGenerator) {
+            AccountRepository accountRepository) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
-        this.accountNumberGenerator = accountNumberGenerator;
     }
 
     public Client addClient(Client client) throws BankException {
@@ -35,7 +31,14 @@ public class Bank {
     }
 
     public Account addAccount(Account account) throws BankException {
-        account.setNumber(accountNumberGenerator.next());
+        Long accountNumber = 1L;
+
+        String lastNumber = accountRepository.findLastNumber();
+        if (lastNumber != null) {
+            accountNumber = Long.parseLong(lastNumber) + 1;
+        }
+
+        account.setNumber(String.format("%026d", accountNumber));
         account.setBalance(BigDecimal.ZERO);
         return accountRepository.saveAndFlush(account);
     }
