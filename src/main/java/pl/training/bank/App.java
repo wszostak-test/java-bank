@@ -5,9 +5,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
 
+import javax.jws.WebService;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@WebService
 public class App
 {
     public static void main(String[] args) {
