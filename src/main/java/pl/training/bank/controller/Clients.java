@@ -46,4 +46,12 @@ public class Clients {
         return "home";
     }
 
+    @RequestMapping(value = "showAllClients", method = RequestMethod.GET)
+    public ModelAndView showAllClients(){
+        List<Client> clients = bank.getClients();
+        ModelAndView modelAndView = new ModelAndView("allClients");
+        modelAndView.addObject(clients);
+        return modelAndView;
+    }
+
 }

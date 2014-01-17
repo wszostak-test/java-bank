@@ -16,9 +16,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    @Pattern(regexp = "[a-z]+")
-    @NotEmpty
-    @Length(min = 3, max = 10)
+//    @Pattern(regexp = "[a-z]+")
+//    @NotEmpty
+//    @Length(min = 3, max = 10)
     private String firstName;
     private String lastName;
     @OneToMany(cascade = CascadeType.ALL)
