@@ -4,30 +4,25 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@NamedQuery(
-    name = Account.QL_SELECT_BY_NUMBER,
-    query = "select a from Account a where a.number = :number")
+@NamedQuery(name = Account.QL_SELECT_BY_NUMBER,
+        query = "select a from Account a where a.number = :number")
 @Table(name = "accounts")
 @Entity
-public class Account
-{
-    public static final String QL_SELECT_BY_NUMBER =
-        "selectByNumber";
+public class Account {
 
+    public static final String QL_SELECT_BY_NUMBER = "selectByNumber";
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue
     private Long id;
-
     @Column(length = 26)
     private String number;
-
     private BigDecimal balance;
-
+    @JoinTable(name = "accounts_clients",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name =  "client_id")
+    )
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "account_clients",
-        joinColumns = @JoinColumn(name = "account_id"),
-        inverseJoinColumns = @JoinColumn(name = "client_id"))
     private List<Client> clients;
 
     public void payIn(BigDecimal amount) {

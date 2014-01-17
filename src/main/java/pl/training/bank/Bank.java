@@ -1,5 +1,8 @@
 package pl.training.bank;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.training.bank.entity.Account;
 import pl.training.bank.entity.Client;
@@ -7,16 +10,17 @@ import pl.training.bank.service.repository.AccountRepository;
 import pl.training.bank.service.repository.ClientRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Transactional(rollbackFor = BankException.class)
+@Component
 public class Bank {
 
     private ClientRepository clientRepository;
     private AccountRepository accountRepository;
 
-    public Bank(
-            ClientRepository clientRepository,
-            AccountRepository accountRepository) {
+    @Autowired
+    public Bank(ClientRepository clientRepository, AccountRepository accountRepository) {
         this.clientRepository = clientRepository;
         this.accountRepository = accountRepository;
     }
@@ -26,14 +30,9 @@ public class Bank {
     }
 
     public Account addAccount(Account account) throws BankException {
-        Long accountNumber = 1L;
-
-        String lastNumber = accountRepository.findLastNumber();
-        if (lastNumber != null) {
-            accountNumber = Long.parseLong(lastNumber) + 1;
-        }
-
-        account.setNumber(String.format("%026d", accountNumber));
+        String lastAccountNumber = accountRepository.findLastNumber();
+        long lastId = Long.parseLong(lastAccountNumber);
+        account.setNumber(String.format("%026d", ++lastId));
         account.setBalance(BigDecimal.ZERO);
         return accountRepository.saveAndFlush(account);
     }
@@ -49,23 +48,24 @@ public class Bank {
     }
 
     public void payInCashToAccount(String accountNumber, BigDecimal amount)  throws BankException {
-        Account account = accountRepository.findByNumber(accountNumber);
-        account.payIn(amount);
+        accountRepository.findByNumber(accountNumber).payIn(amount);
     }
 
     public void payOutCashFromAccount(String accountNumber, BigDecimal amount)  throws BankException {
-        Account account = accountRepository.findByNumber(accountNumber);
-        account.payOut(amount);
-
+        accountRepository.findByNumber(accountNumber).payOut(amount);
     }
 
     public void transferCash(String fromAccountNumber, String toAccountNumber, BigDecimal amount)  throws BankException {
         payOutCashFromAccount(fromAccountNumber, amount);
-        try {
-            payInCashToAccount(toAccountNumber, amount);
-        } catch (BankException e) {
-            payInCashToAccount(fromAccountNumber, amount);
-            throw e;
-        }
+        payInCashToAccount(toAccountNumber, amount);
     }
+
+    public Client getClientById(Long id) {
+        return clientRepository.findOne(id);
+    }
+
+    public List<Client> getClients() {
+        return clientRepository.findAll();
+    }
+
 }

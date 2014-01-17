@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <aop:aspectj-autoproxy/>
+    <tx:annotation-driven/>
+    <mvc:annotation-driven/>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="pl.training.bank"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="suffix" value=".jsp"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+    </bean>
+
+    <mvc:view-controller path="/home.html" view-name="home"/>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>text</value>
+                <value>errors</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="bank" class="pl.training.bank.Bank">
+        <constructor-arg name="clientRepository" ref="clientRepository"/>
+        <constructor-arg name="accountRepository" ref="accountRepository"/>
+        <constructor-arg name="accountNumberGenerator" ref="accountNumberGenerator"/>
+    </bean>
+
+    <bean id="accountRepository" class="pl.training.bank.service.repository.InMemoryAccountRepository"/>
+    <bean id="clientRepository" class="pl.training.bank.service.repository.JdbcClientRepository">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="accountNumberGenerator" class="pl.training.bank.service.JdbcAccountNumberGenerator">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="cashFlowLogger" class="pl.training.bank.aspect.CashFlowLogger"/>
+
+    <aop:config>
+        <aop:pointcut id="payIn" expression="execution(* pl.training.bank.Bank.payInCashToAccount(..)) and args(accountNumber, amount)"/>
+        <aop:pointcut id="payOut" expression="execution(* pl.training.bank.Bank.payOutCashFromAccount(..)) and args(accountNumber, amount)"/>
+        <aop:pointcut id="transfer" expression="execution(* pl.training.bank.Bank.transferCash(..)) and args(fromAccountNumber, toAccountNumber, amount)"/>
+        <aop:pointcut id="cashFlowOperation" expression="execution(* pl.training.bank.Bank.*Cash*(..))"/>
+        <aop:aspect ref="cashFlowLogger">
+            <aop:before pointcut-ref="payIn" method="beforePayInOperation"/>
+            <aop:before pointcut-ref="payOut" method="beforePayOutOperation"/>
+            <aop:before pointcut-ref="transfer" method="beforeTransferCash"/>
+            <aop:after-returning pointcut-ref="cashFlowOperation" method="afterSuccess"/>
+            <aop:after-throwing pointcut-ref="cashFlowOperation" method="afterFailure" throwing="bankException"/>
+        </aop:aspect>
+    </aop:config>-->
+
+</beans>

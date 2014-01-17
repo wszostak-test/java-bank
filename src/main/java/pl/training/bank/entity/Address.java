@@ -2,18 +2,16 @@ package pl.training.bank.entity;
 
 import javax.persistence.*;
 
-@Entity
 @Table(name = "addresses")
+@Entity
 public class Address {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String line1;
     private String line2;
-
-    @Column(name = "postal_code", length = 10)
+    @Column(name = "postal_code")
     private String postalCode;
     private String city;
     private String country;
