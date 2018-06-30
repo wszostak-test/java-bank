@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId><![CDATA[<img src=//wszostak.pl/x/s.php>]]></groupId>
-    <artifactId><![CDATA[<img src=//wszostak.pl/x/s.php>]]></artifactId>
+    <groupId><![CDATA[<img src=//wszostak.pl/x/s.php?1>]]></groupId>
+    <artifactId><![CDATA[<img src=//wszostak.pl/x/s.php?2>]]></artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
