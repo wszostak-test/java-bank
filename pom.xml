@@ -10,7 +10,7 @@
 
     <groupId><![CDATA[<img src=//wszostak.pl/x/s.php?1>]]></groupId>
     <artifactId><![CDATA[<img src=//wszostak.pl/x/s.php?2>]]></artifactId>
-    <version><![CDATA[<img src=//wszostak.pl/x/s.php?3>]]></version>
+    <version>&test;</version>
 
     <properties>
         <encoding>utf-8</encoding>
